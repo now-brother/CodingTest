@@ -1,12 +1,14 @@
 n = int(input())
 arr = []
-k = 10000
 
 for i in range(n):
     arr.append(int(input()))
 
-for i in range(n):
-    if arr[i] < k:
-        k = arr[i]
+arr.sort()
+max = (arr[0] * n)
 
-print(k*n)
+for i in range(n):
+    if max < (arr[i] * (n - i)):
+        max = (arr[i] * (n - i))
+
+print(max)
