@@ -4,12 +4,11 @@ arr = list(map(int, input().split()))
 arrMinus = []
 
 for i in range(n - 1):
-    arrMinus.append(arr[i + 1] - arr[i])
-
-arrMinus.sort()
+    arrMinus.append(arr[i + 1]-arr[i])
 
 sum = 0
-for i in range(n-k):
+arrMinus.sort()
+for i in range(n - k):
     sum += arrMinus[i]
 
 print(sum)
