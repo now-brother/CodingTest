@@ -1,14 +1,15 @@
-if __name__ == '__main__':
-    import sys
+import sys
 
-    n = int(sys.stdin.readline())
+n = int(sys.stdin.readline())
 
-    dataInput = []
+dataInput = []
 
-    for i in range(n):
-        dataInput.append(sys.stdin.readline().split())
+for _ in range(n):
+    age, name = sys.stdin.readline().split()
+    age = int(age)
+    dataInput.append((age, name))
 
-    dataInput.sort(key = lambda x : x[0])
+dataInput.sort(key = lambda x : x[0])
 
-    for i in range(n):
-        print(dataInput[i][0], dataInput[i][1])
+for i in dataInput:
+    print(i[0], i[1])
