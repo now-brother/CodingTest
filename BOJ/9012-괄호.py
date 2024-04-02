@@ -1,4 +1,4 @@
-#n=int(input())
+n=int(input())
 answer = []
 
 for i in range(n):
