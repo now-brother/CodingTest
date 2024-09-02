@@ -1,28 +1,29 @@
 n = int(input())
 
-stack = []
-answer = []
+stack = [0 for i in range(n)]
+size = 0
 for i in range(n):
     cmd = input().split()
 
     if cmd[0] == 'push':
-        stack.append(int(cmd[1]))
+        stack[size] = int(cmd[1])
+        size += 1
     elif cmd[0] == 'pop':
-        if stack:
-            answer.append(stack.pop())
+        if size != 0:
+            print(stack[size - 1])
+            stack[size - 1] = 0
+            size -= 1
         else:
-            answer.append(-1)
+            print(-1)
     elif cmd[0] == 'size':
-        answer.append(len(stack))
+        print(size)
     elif cmd[0] == 'empty':
-        if stack:
-            answer.append(0)
+        if size == 0:
+            print(1)
         else:
-            answer.append(1)
+            print(0)
     elif cmd[0] == 'top':
-        if stack:
-            answer.append(stack[-1])
+        if size != 0:
+            print(stack[size - 1])
         else:
-            answer.append(-1)
-for i in answer:
-    print(i)
+            print(-1)

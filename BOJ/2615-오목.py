@@ -1,72 +1,39 @@
-if __name__ == "__main__":
-    concave = [list(map(int, input().split())) for _ in range(19)]
+import sys
+input = sys.stdin.readline
 
-    ans = 0
-    Flag = True
+board = []
+for i in range(19):
+    board.append(list(map(int, input().split())))
 
-    for i in range(19):
-        for j in range(19):
-            if concave[i][j] == 1 or concave[i][j] == 2:
-                num = concave[i][j]
-                if j < 15:                                          #가로 한줄
-                    if concave[i][j + 1] == num and concave[i][j + 2] == num and concave[i][j + 3] == num and concave[i][j + 4] == num:
-                        if j + 5 < 19:
-                            if concave[i][j + 5] == num:
-                                ans = 0
-                            else:
-                                if j > 0:
-                                    if concave[i][j - 1] == num:
-                                        ans = 0
-                                    else:
-                                        ans = num
-                        else:
-                            ans = num       
-                if i < 15:                                                                  #세로 한줄
-                    if concave[i + 1][j] == num and concave[i + 2][j] == num and concave[i + 3][j] == num and concave[i + 4][j] == num:
-                        if i + 5 < 19:
-                            if concave[i + 5][j] == num:
-                                ans = 0
-                            else:
-                                if i > 0:
-                                    if concave[i - 1][j] == num:
-                                        ans = 0
-                                    else:
-                                        ans = num
-                        else:
-                            ans = num       
-                if i < 15 and j < 15:                                                                                        #대각선 아래로 
-                    if concave[i + 1][j + 1] == num and concave[i + 2][j + 2] == num and concave[i + 3][j + 3] == num and concave[i + 4][j + 4] == num:
-                        if i + 5 < 19 and j + 5 < 19:
-                            if concave[i + 5][j + 5] == num:
-                                ans = 0
-                            else:
-                                if i > 0 and j > 0:
-                                    if concave[i - 1][j - 1] == num:
-                                        ans = 0
-                                    else:
-                                        ans = num
-                        else:
-                            ans = num
-                if i > 3 and j < 16:                              #대각선 위로
-                    if concave[i - 1][j + 1] == num and concave[i - 2][j + 2] == num and concave[i - 3][j + 3] == num and concave[i - 4][j + 4] == num:
-                        if i - 5 >= 0 and j + 5 < 19:
-                            if concave[i - 5][j + 5] == num:
-                                ans = 0
-                            else:
-                                if i < 18 and j > 0:
-                                    if concave[i + 1][j - 1] == num:
-                                        ans = 0
-                                    else:
-                                        ans = num
-                        else:
-                            ans = num
-            if ans != 0:
-                print(ans)
-                print(i + 1, j + 1)
-                Flag = False
-                break
-        if Flag == False:
-            break
-        
-    if Flag == True:
-        print(0)
+# → ↓ ↘ ↗
+dx = [0, 1, 1, -1]
+dy = [1, 0, 1, 1]
+
+for x in range(19):
+    for y in range(19):
+        if board[x][y] != 0:
+            focus = board[x][y]
+
+            for i in range(4):
+                cnt = 1
+                nx = x + dx[i]
+                ny = y + dy[i]
+
+                while 0 <= nx < 19 and 0 <= ny < 19 and board[nx][ny] == focus:
+                    cnt += 1
+
+                    if cnt == 5:
+                        # 육목 체크
+                        if 0 <= x - dx[i] < 19 and 0 <= y - dy[i] < 19 and board[x - dx[i]][y - dy[i]] == focus:
+                            break
+                        if 0 <= nx + dx[i] < 19 and 0 <= ny + dy[i] < 19 and board[nx + dx[i]][ny + dy[i]] == focus:
+                            break
+                        # 육목이 아니면 성공한거니까 종료
+                        print(focus)
+                        print(x + 1, y + 1)
+                        sys.exit(0)
+
+                    nx += dx[i]
+                    ny += dy[i]
+
+print(0)
